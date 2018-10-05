@@ -3,7 +3,8 @@ import styled  from 'styled-components';
 import data from './data.json';
 import DataRow from './DataRow';
 import {
-  sortByKey,
+  sortByKeyAsc,
+  sortByKeyDesc,
 } from './functions';
 
 class App extends Component {
@@ -13,6 +14,8 @@ class App extends Component {
     this.state = {
       data: [],
       keys: [],
+      sortedBy: null,
+      sortMethod: '',
     };
   }
 
@@ -28,10 +31,26 @@ class App extends Component {
   }
 
   onKeyClick = key => {
-    let newArr = sortByKey(this.state.data, key);
+    let newArr,
+        sortedMethod;
+    if (this.state.keys.indexOf(key) === this.state.sortedBy) {
+      if (this.state.sortedMethod === 'asc') {
+        newArr = sortByKeyDesc(this.state.data, key);
+        sortedMethod = 'desc';
+      } else {
+        newArr = sortByKeyAsc(this.state.data, key);
+        sortedMethod = 'asc';
+      }
+    } else {
+      newArr = sortByKeyAsc(this.state.data, key);
+      sortedMethod = 'asc';
+    }
     this.setState({
       data: newArr,
-    })
+      sortedBy: this.state.keys.indexOf(key),
+      sortedMethod,
+    });
+
   }
 
   renderHeader = () => {
@@ -42,6 +61,12 @@ class App extends Component {
           address={key === 'address'}
           onClick={() => this.onKeyClick(key)}>
           {key}
+          {this.state.sortedBy === index &&
+          this.state.sortedMethod === 'asc' &&
+            ' ⬆️'}
+          {this.state.sortedBy === index &&
+          this.state.sortedMethod === 'desc' &&
+            ' ⬇️'}
         </Key>
       ));
     }
@@ -59,7 +84,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('data: ', this.state.data)
     return (
       <Wrapper>
         <Table>
