@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import styled  from 'styled-components';
 import data from './data.json';
 import DataRow from './DataRow';
+import {
+  sortByKey,
+} from './functions';
 
 class App extends Component {
 
@@ -24,12 +27,20 @@ class App extends Component {
     });
   }
 
+  onKeyClick = key => {
+    let newArr = sortByKey(this.state.data, key);
+    this.setState({
+      data: newArr,
+    })
+  }
+
   renderHeader = () => {
     if (this.state.keys.length > 0) {
       return this.state.keys.map((key, index) => (
         <Key
           key={index}
-          address={key === 'address'}>
+          address={key === 'address'}
+          onClick={() => this.onKeyClick(key)}>
           {key}
         </Key>
       ));
@@ -48,6 +59,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('data: ', this.state.data)
     return (
       <Wrapper>
         <Table>

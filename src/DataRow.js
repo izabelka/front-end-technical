@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import styled  from 'styled-components';
-import data from './data.json';
 
 class DataRow extends Component {
 
   renderCells = () => {
-    //console.log(this.props)
     return this.props.keys.map((key, index) => (
       <Cell
         key={index}
