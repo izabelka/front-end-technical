@@ -8,7 +8,8 @@ class DataRow extends Component {
     //console.log(this.props)
     return this.props.keys.map((key, index) => (
       <Cell
-        key={index}>
+        key={index}
+        address={key === 'address'}>
         {this.props.data[key]}
       </Cell>
     ));
@@ -28,10 +29,12 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1px solid #e1e4e8;
+  padding: 12px 0 12px 14px;
 `;
 
 const Cell = styled.span`
-  width: 120px;
+  width: ${({ address }) => address ? 150 : 100}px;
 `;
 
 export default DataRow;

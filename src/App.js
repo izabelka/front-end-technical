@@ -28,7 +28,8 @@ class App extends Component {
     if (this.state.keys.length > 0) {
       return this.state.keys.map((key, index) => (
         <Key
-          key={index}>
+          key={index}
+          address={key === 'address'}>
           {key}
         </Key>
       ));
@@ -74,7 +75,6 @@ const Wrapper = styled.div`
 
 const Table = styled.div`
   width: 100%;
-  ${'' /* max-width: 640px; */}
 `;
 
 
@@ -83,11 +83,14 @@ const HeaderRow = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #fafbfc;
+  padding: 20px 0 20px 14px;
+  border-bottom: 1px solid #e1e4e8;
 `;
 
 const Key = styled.span`
-  ${'' /* width: 120px; */}
-  text-align: left;
+  width: ${({ address }) => address ? 150 : 100}px;
+  text-transform: capitalize;
 `;
 
 const DataWrapper = styled.div`
