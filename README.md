@@ -1,6 +1,9 @@
 A webpage that displays `json` data in a table with sortable columns
 
 
+Live demo: [https://github.com/izabelka/front-end-technical](https://github.com/izabelka/front-end-technical)
+
+
 ## How to run the app
 1. Clone this repository
 2. In the cloned repository directory run the command:
