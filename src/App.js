@@ -50,7 +50,14 @@ class App extends Component {
       sortedBy: this.state.keys.indexOf(key),
       sortedMethod,
     });
+  }
 
+  onRemoveRowClick = (keyForRemoving) => {
+    let newArr = [...this.state.data]
+    newArr.splice(keyForRemoving, 1);
+    this.setState({
+      data: newArr,
+    });
   }
 
   renderHeader = () => {
@@ -78,7 +85,9 @@ class App extends Component {
         <DataRow
           key={index}
           data={data}
-          keys={this.state.keys}/>
+          keys={this.state.keys}
+          onRemoveRowClick={this.onRemoveRowClick}
+          keyForRemoving={index}/>
       ));
     }
   }
@@ -126,7 +135,7 @@ const HeaderRow = styled.div`
 `;
 
 const Key = styled.span`
-  width: ${({ address }) => address ? 150 : 100}px;
+  width: ${({ address }) => address ? 130 : 100}px;
   text-transform: capitalize;
   padding: 10px;
   border: 1px solid #14aaf5;

@@ -3,6 +3,13 @@ import styled  from 'styled-components';
 
 class DataRow extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      hovered: false,
+    };
+  }
+
   renderCells = () => {
     return this.props.keys.map((key, index) => (
       <Cell
@@ -13,10 +20,33 @@ class DataRow extends Component {
     ));
   }
 
+  onStartHover = () => {
+    this.setState({
+      hovered: true,
+    });
+  }
+
+  onStopHover = () => {
+    this.setState({
+      hovered: false,
+    });
+  }
+
+  onRemoveClick = () => {
+    this.props.onRemoveRowClick(this.props.keyForRemoving);
+  }
+
   render() {
     return (
-      <Wrapper>
+      <Wrapper
+        onMouseOver={this.onStartHover}
+        onMouseOut={this.onStopHover}>
         {this.renderCells()}
+        <RemoveButton
+          show={this.state.hovered}
+          onClick={this.onRemoveClick}>
+            {'X'}
+        </RemoveButton>
       </Wrapper>
     );
   }
@@ -32,7 +62,21 @@ const Wrapper = styled.div`
 `;
 
 const Cell = styled.span`
-  width: ${({ address }) => address ? 150 : 100}px;
+  width: ${({ address }) => address ? 130 : 100}px;
+`;
+
+const RemoveButton = styled.span`
+  opacity: ${({ show }) => show ? 1 : 0};
+  position: absolute;
+  right: 50px;
+  width: 100px;
+  background-color: red;
+  z-index: 1;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
 `;
 
 export default DataRow;
