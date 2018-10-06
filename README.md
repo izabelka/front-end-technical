@@ -1,7 +1,7 @@
 A webpage that displays `json` data in a table with sortable columns
 
 
-Live demo: [https://github.com/izabelka/front-end-technical](https://github.com/izabelka/front-end-technical)
+Live demo: [http://izabelka.github.io/front-end-technical](http://izabelka.github.io/front-end-technical)
 
 
 ## How to run the app
